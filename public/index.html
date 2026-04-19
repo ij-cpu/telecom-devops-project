@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Telecom Dashboard</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+        .card {
+            background: #1e293b;
+            padding: 20px;
+            margin: 20px;
+            border-radius: 10px;
+            display: inline-block;
+            width: 200px;
+        }
+        h1 {
+            color: #38bdf8;
+        }
+    </style>
+</head>
+<body>
+
+<h1>📡 Telecom Monitoring Dashboard</h1>
+
+<div class="card">
+    <h2>Status</h2>
+    <p id="status">Loading...</p>
+</div>
+
+<div class="card">
+    <h2>Users</h2>
+    <p id="users">-</p>
+</div>
+
+<div class="card">
+    <h2>Active Calls</h2>
+    <p id="calls">-</p>
+</div>
+
+<div class="card">
+    <h2>Uptime</h2>
+    <p id="uptime">-</p>
+</div>
+
+<script>
+async function loadData() {
+    const res = await fetch('/api/status');
+    const data = await res.json();
+
+    document.getElementById('status').innerText = data.status;
+    document.getElementById('users').innerText = data.users;
+    document.getElementById('calls').innerText = data.calls;
+    document.getElementById('uptime').innerText = data.uptime;
+}
+
+setInterval(loadData, 2000);
+loadData();
+</script>
+
+</body>
+</html>
